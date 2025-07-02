@@ -5,7 +5,7 @@ from loguru import logger
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
-    async_session_maker,
+    async_sessionmaker,
     create_async_engine,
 )
 
@@ -17,7 +17,7 @@ class DatabaseSessionManager:
         engine_kwargs = engine_kwargs or {}
         logger.debug("[DB] Initializing engine...")
         self._engine: Optional[AsyncEngine] = create_async_engine(host, **engine_kwargs)
-        self._session_maker = async_session_maker(
+        self._session_maker = async_sessionmaker(
             autocommit=False,
             autoflush=False,
             bind=self._engine,
